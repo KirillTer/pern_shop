@@ -1,26 +1,22 @@
-import * as dotenv from 'dotenv'
-import * as express from'express'
+import express from 'express'
 import sequelizeConnection from'./src/db'
-// import models from'./models/models'
-import * as cors from'cors'
-// import fileUpload from'express-fileupload'
-// import router from'./routes/index'
-// import errorHandler from'./middleware/ErrorHandlingMiddleware'
-import * as path from'path'
+import cors from 'cors'
+import fileUpload from'express-fileupload'
+import router from'./src/routes/index'
+import errorHandler from'./src/middleware/ErrorHandlingMiddleware'
+import path from'path'
 
-dotenv.config({path:`.${process.env.NODE_ENV}.env`});
-
-const PORT = process.env.PORT || 5001
+const PORT = process.env.PORT || 5003
 
 const app = express()
 app.use(cors())
 app.use(express.json())
 app.use(express.static(path.resolve(__dirname, 'static')))
-// app.use(fileUpload({}))
-// app.use('/api', router)
+app.use(fileUpload({}))
+app.use('/api', router)
 
 // Error handler
-// app.use(errorHandler)
+app.use(errorHandler)
 
 const start = async () => {
     try {
@@ -31,6 +27,5 @@ const start = async () => {
         console.log(e)
     }
 }
-
 
 start()
