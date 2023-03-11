@@ -99,7 +99,7 @@ const Navbar = () => {
         <Menu
           theme='dark'
           mode="horizontal"
-          selectedKeys={(location.pathname !== `/`) ? [location.pathname] : (isAuth ? [RouteNames.SHOP] : [RouteNames.LOGIN])}
+          selectedKeys={(location.pathname !== `/`) ? ['/'+location.pathname.split('/')[1]] : (isAuth ? [RouteNames.SHOP] : [RouteNames.LOGIN])}
           items={isAuth ? privateMenuItems : publicMenuItems}
         />
       </Header>

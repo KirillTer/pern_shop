@@ -14,7 +14,6 @@ const Login = () => {
 
   useEffect(() => {
     if(isAuth && redirect) {
-      console.log('LOGIN', isAuth, redirect)
       setRedirect(false)
       navigate(RouteNames.SHOP);
     }

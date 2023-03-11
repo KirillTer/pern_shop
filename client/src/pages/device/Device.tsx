@@ -1,21 +1,46 @@
-import { Button, Form, Input, Layout, Row } from "antd";
-import { useNavigate } from "react-router-dom";
-// import { authUser } from '../../store/reducers/auth/ActionCreators';
-import { useAppDispatch } from '../../hooks/redux';
-import { RouteNames } from '../../components/AppRouter';
+import { Card, Col, Row, Spin, Typography } from 'antd';
+import { useParams } from 'react-router-dom'
+import { deviceAPI } from "../../services/DeviceService";
+const { Title } = Typography;
 
-const Device = () => {
+const { Meta } = Card;
 
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
+function Device() {
+  const { id } = useParams();
 
-  return (
-    <Layout>
-      <Row justify={'center'} align={'top'} gutter={[16, 16]} className={'h100'}>
-        <h1>Device</h1>
+  const {
+    data,
+    error,
+    isLoading,
+  } = deviceAPI.useFetchByIdQuery({id});
+
+  return ( 
+    <>
+      <Row justify="center">
+        <Typography>
+          <Title level={2}>Device Details</Title>
+        </Typography>
       </Row>
-    </Layout>
+      {isLoading && <Spin />}
+      {error && <h1>{error as string}</h1>}
+      <Col span={6} offset={9}>
+        {error 
+          ? <h1>{(error as any).data.message}</h1>
+          : isLoading 
+          ? <h1>Loading...</h1>
+          : <Card
+              hoverable
+              style={{ width: 300 }}
+              className="postItem"
+              cover={<img alt="example" height={150} src={`http://localhost:5001/${data.img}`} />}
+              extra={`Raiting - ${data.rating}`}
+            >
+              <Meta title={data.name} description={data.price} />
+            </Card>
+        }
+      </Col>
+    </>
   );
 }
- 
+
 export default Device;

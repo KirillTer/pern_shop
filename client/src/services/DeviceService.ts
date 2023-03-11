@@ -17,6 +17,13 @@ export const deviceAPI = createApi({
       }),
       providesTags: (result) => ["Device"],
     }),
+    fetchById: build.query({
+      query: (reqParams: any = {id: 0}) => ({
+        url: `/device/${reqParams.id}`,
+        headers: {'Authorization': `Bearer ${localStorage.getItem('token')}`},
+      }),
+      providesTags: (result) => ["Device"],
+    }),
     createDevice: build.mutation<IType, IType>({
       query: (device) => ({
         url: `/device`,

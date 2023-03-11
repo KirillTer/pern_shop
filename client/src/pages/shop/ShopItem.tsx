@@ -1,6 +1,7 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { IDevice } from "../../models/IDevice";
 import { Card } from 'antd';
+import { Link } from 'react-router-dom';
 
 const { Meta } = Card;
 
@@ -12,15 +13,15 @@ interface UserItemProps {
 
 const PostItem: FC<UserItemProps> = ({ device, remove, update }) => {
 
-  const handleRemove = (event: React.MouseEvent) => {
-    event.stopPropagation()
-    if (remove) remove(device)
-  }
+  // const handleRemove = (event: React.MouseEvent) => {
+  //   event.stopPropagation()
+  //   if (remove) remove(device)
+  // }
 
-  const handleUpdate = (event: React.MouseEvent) => {
-    const name = prompt() || ""
-    if (update) update({ ...device, name })
-  }
+  // const handleUpdate = (event: React.MouseEvent) => {
+  //   const name = prompt() || ""
+  //   if (update) update({ ...device, name })
+  // }
 
   return (
     <Card
@@ -28,6 +29,7 @@ const PostItem: FC<UserItemProps> = ({ device, remove, update }) => {
       style={{ width: 240 }}
       className="postItem"
       cover={<img alt="example" height={150} src={`http://localhost:5001/${device.img}`} />}
+      extra={<Link to={`/device/${device.id}`}>Details</Link>}
     >
       <Meta title={device.name} description={device.price} />
     </Card>

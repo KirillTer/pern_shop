@@ -1,6 +1,6 @@
 
-import React, { useEffect, useState, useRef, useTransition } from "react";
-import { Button, Col, Layout, Menu, MenuProps, Row, Segmented } from 'antd';
+import React, { useState } from "react";
+import { Col, Layout, Menu, MenuProps, Row, Segmented } from 'antd';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { deviceAPI } from "../../services/DeviceService";
 import { typeAPI } from "../../services/TypeService";
@@ -21,7 +21,6 @@ const DeviceContainer = () => {
     data: devices,
     error: apiError,
     isLoading: isDevLoading,
-    refetch,
   } = deviceAPI.useFetchAllDevicesQuery({brandId, typeId });
 
   const {
@@ -94,7 +93,12 @@ const DeviceContainer = () => {
           <div className="post__list">
             {/* <Button type="primary" onClick={() => refetch()}>Refetch</Button> */}
             {/* <PostModal createNewPost={handleCreate}/> */}
-            {brands?.length && <Segmented size="large" options={[getItem('All Brands'), ...(brands.map((brand: IBrand) => (brand.name)))]} onChange={onSelectBrand}/>}
+            {apiBrandError 
+              ? <h1>{(apiError as any).data.message}</h1>
+              : isBrandLoading 
+              ? <h1>Loading...</h1>
+              : <Segmented size="large" options={[getItem('All Brands'), ...(brands.map((brand: IBrand) => (brand.name)))]} onChange={onSelectBrand}/>
+            }
             <h1 >Devices list</h1>
             {apiError 
               ? <h1>{(apiError as any).data.message}</h1>

@@ -15,7 +15,7 @@ export enum RouteNames {
   REGISTRATION = '/registration',
   ADMIN = '/admin',
   BASKET = '/basket',
-  DEVICE = '/device',
+  DEVICE = '/device/:id',
   SHOP = '/shop',
   ANYPATH = '*'
 }

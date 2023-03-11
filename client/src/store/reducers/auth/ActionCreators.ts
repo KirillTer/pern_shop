@@ -4,11 +4,12 @@ import axios from 'axios';
 import { IAuthResponse } from '../../../models/IAuth';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-export const API_URL = 'http://localhost:5001/api/user'
-
+export const BASE_USER_URL = `${process.env.REACT_APP_API_URL}`
+export const BASE_AUTH_URL = `${process.env.REACT_APP_API_URL}auth`
+console.log('!!!', process.env.API_URL)
 const $api = axios.create({
   withCredentials: true,
-  baseURL: API_URL
+  baseURL: BASE_USER_URL
 })
 
 $api.interceptors.request.use((config) => {
@@ -50,7 +51,6 @@ export default $api;
 export const registerUser = createAsyncThunk(
   'user/registerUser',
   async (reqParams: any = {email: '', password: ''}, thunkAPI) => {
-    console.log('registerUser')
     try {
       const response = await $api.post<IAuthResponse>(
         '/registration', {
@@ -70,7 +70,6 @@ export const registerUser = createAsyncThunk(
 export const loginUser = createAsyncThunk(
   'user/loginUser',
   async (reqParams: any = {email: '', password: ''}, thunkAPI) => {
-    console.log('loginUser')
     try {
       const response = await $api.post<IAuthResponse>(
         '/login', {
@@ -104,7 +103,7 @@ export const refreshUser = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const response = await $api.get<IAuthResponse>(
-        API_URL + '/auth',
+        BASE_AUTH_URL,
         {withCredentials: true}
       );
       localStorage.setItem('token', response.data.token)
