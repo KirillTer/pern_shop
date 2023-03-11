@@ -30,15 +30,15 @@ const UserController = {
 
     async login(req, res, next) {
         const {email, password} = req.body
-        const { dataValues } = await User.findOne({where: {email}})
-        if (!dataValues) {
-            return next(ApiError.internal('User dont found'))
+        const user = await User.findOne({where: {email}})
+        if (!user) {
+            return next(ApiError.forbidden('User not found'))
         }
-        let comparePassword = bcrypt.compareSync(password, dataValues.password)
+        let comparePassword = bcrypt.compareSync(password, user.dataValues.password)
         if (!comparePassword) {
-            return next(ApiError.internal('Incorrect password'))
+            return next(ApiError.forbidden('Incorrect password'))
         }
-        const token = generateJwt(dataValues.id, dataValues.email, dataValues.role)
+        const token = generateJwt(user.dataValues.id, user.dataValues.email, user.dataValues.role)
         return res.json({token})
     },
 

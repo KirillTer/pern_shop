@@ -35,16 +35,16 @@ const DeviceController = {
         limit = limit || 9
         let offset = page * limit - limit
         let devices;
-        if (!brandId && !typeId) {
+        if ((!brandId || brandId === '0') && (!typeId || typeId === '0')) {
             devices = await Device.findAndCountAll({limit, offset})
         }
-        if (brandId && !typeId) {
+        if ((brandId && (brandId !== '0')) && (!typeId || typeId === '0')) {
             devices = await Device.findAndCountAll({where:{brandId}, limit, offset})
         }
-        if (!brandId && typeId) {
+        if ((!brandId || brandId === '0') && (typeId && (typeId !== '0'))) {
             devices = await Device.findAndCountAll({where:{typeId}, limit, offset})
         }
-        if (brandId && typeId) {
+        if ((brandId && (brandId !== '0')) && (typeId && (typeId !== '0'))) {
             devices = await Device.findAndCountAll({where:{typeId, brandId}, limit, offset})
         }
         return res.json(devices)
