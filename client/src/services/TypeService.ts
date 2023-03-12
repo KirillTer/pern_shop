@@ -14,11 +14,11 @@ export const typeAPI = createApi({
       providesTags: (result) => ["Type"],
     }),
     createType: build.mutation<IDevice, IDevice>({
-      query: (type) => ({
+      query: (reqParams: any = {name: null}) => ({
         url: `/type`,
         headers: {'Authorization': `Bearer ${localStorage.getItem('token')}`},
         method: "POST",
-        body: type,
+        body: {"name": reqParams.name},
       }),
       invalidatesTags: ["Type"],
     }),

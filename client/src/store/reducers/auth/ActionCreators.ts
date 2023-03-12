@@ -6,7 +6,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const BASE_USER_URL = `${process.env.REACT_APP_API_URL}`
 export const BASE_AUTH_URL = `${process.env.REACT_APP_API_URL}auth`
-console.log('!!!', process.env.API_URL)
+
 const $api = axios.create({
   withCredentials: true,
   baseURL: BASE_USER_URL

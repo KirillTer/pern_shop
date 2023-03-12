@@ -14,11 +14,11 @@ export const brandAPI = createApi({
       providesTags: (result) => ["Brand"],
     }),
     createBrand: build.mutation<IBrand, IBrand>({
-      query: (brand) => ({
+      query: (reqParams: any = {name: null}) => ({
         url: `/brand`,
         headers: {'Authorization': `Bearer ${localStorage.getItem('token')}`},
         method: "POST",
-        body: brand,
+        body: {"name": reqParams.name},
       }),
       invalidatesTags: ["Brand"],
     }),

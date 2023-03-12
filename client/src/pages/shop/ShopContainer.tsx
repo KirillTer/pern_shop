@@ -35,15 +35,12 @@ const DeviceContainer = () => {
     isLoading: isBrandLoading,
   } = brandAPI.useFetchAllBrandsQuery({});
 
-  const [updatePost] = deviceAPI.useUpdateDeviceMutation();
-  const [deletePost] = deviceAPI.useDeleteDeviceMutation();
-
   const handleRemove = (device: IDevice) => {
-    deletePost(device);
+
   };
 
   const handleUpdate = (device: IDevice) => {
-    updatePost(device);
+
   };
 
   type MenuItem = Required<MenuProps>['items'][number];
