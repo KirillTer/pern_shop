@@ -35,7 +35,8 @@ const Navbar = () => {
       key: "/device",
       'data-testid': "users-link",
       onClick: () => navigate(RouteNames.DEVICE),
-      label: 'Device'
+      label: 'Device',
+      disabled: true
     },
   ];
 
@@ -62,7 +63,8 @@ const Navbar = () => {
       key: "/device",
       'data-testid': "users-link",
       onClick: () => navigate(RouteNames.DEVICE),
-      label: 'Device'
+      label: 'Device',
+      disabled: true
     },
     {
       key: "/basket",
